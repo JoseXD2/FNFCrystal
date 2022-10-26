@@ -442,15 +442,22 @@ class PlayState extends MusicBeatState
 		// dialogue checks
 		if (dialogueBox != null && dialogueBox.alive) {
 			// wheee the shift closes the dialogue
-			if (FlxG.keys.justPressed.SHIFT){
+			if (FlxG.keys.justPressed.SHIFT #if android || FlxG.android.justReleased.BACK #end){
 				if(curSong.toLowerCase() == 'thorns' || curSong.toLowerCase() == 'senpai'){
 					sound.fadeOut(2.2, 0);
 				}
 				dialogueBox.closeDialog();
 			}
+                           
+		var pressedEnter:Bool = controls.ACCEPT;
 
+			#if android
+			for (touch in FlxG.touches.list)
+				if (touch.justPressed)
+				  pressedEnter = true;
+			#end
 			// the change I made was just so that it would only take accept inputs
-			if (controls.ACCEPT && dialogueBox.textStarted)
+			if (pressedEnter && dialogueBox.textStarted)
 			{
 				FlxG.sound.play(Paths.sound('cancelMenu'));
 				dialogueBox.curPage += 1;
@@ -469,7 +476,7 @@ class PlayState extends MusicBeatState
 
 		if (!inCutscene) {
 			// pause the game if the game is allowed to pause and enter is pressed
-			if (FlxG.keys.justPressed.ENTER && startedCountdown && canPause)
+			if (FlxG.keys.justPressed.ENTER #if android || FlxG.android.justReleased.BACK #end && startedCountdown && canPause)
 			{
 				// update drawing stuffs
 				persistentUpdate = false;
@@ -1483,21 +1490,21 @@ class PlayState extends MusicBeatState
 		sharedCurSong = curSong;
 		if(curSong == 'Tutorial'){
 			if(Init.trueSettings.get('BF Skin') == 'Beta'){
-				songMusic = new FlxSound().loadEmbedded(Sound.fromFile('./' + Paths.inst(SONG.song + "-Proto")), false, true);
+				songMusic = new FlxSound().loadEmbedded(Paths.inst(SONG.song + "-Proto"), false, true);
 			}
 			else if(Init.trueSettings.get('BF Skin') == 'Mean'){
-				songMusic = new FlxSound().loadEmbedded(Sound.fromFile('./' + Paths.inst(SONG.song + "-Smug")), false, true);
+				songMusic = new FlxSound().loadEmbedded(Paths.inst(SONG.song + "-Smug"), false, true);
 			}
 			else{
-				songMusic = new FlxSound().loadEmbedded(Sound.fromFile('./' + Paths.inst(SONG.song)), false, true);
+				songMusic = new FlxSound().loadEmbedded(Paths.inst(SONG.song), false, true);
 			}
 		}
 		else{
-			songMusic = new FlxSound().loadEmbedded(Sound.fromFile('./' + Paths.inst(SONG.song)), false, true);
+			songMusic = new FlxSound().loadEmbedded(Paths.inst(SONG.song), false, true);
 		}
 
 		if (SONG.needsVoices)
-			vocals = new FlxSound().loadEmbedded(Sound.fromFile('./' + Paths.voices(SONG.song)), false, true);
+			vocals = new FlxSound().loadEmbedded(Paths.voices(SONG.song), false, true);
 		else
 			vocals = new FlxSound();
 
@@ -1929,11 +1936,11 @@ class PlayState extends MusicBeatState
 		else{
 			dialogPath = Paths.json(SONG.song.toLowerCase() + '/dialogue');
 		}
-		if (sys.FileSystem.exists(dialogPath))
+		if (Assets.exists(dialogPath))
 		{
 			startedCountdown = false;
 
-			dialogueBox = DialogueBox.createDialogue(sys.io.File.getContent(dialogPath));
+			dialogueBox = DialogueBox.createDialogue(Assets.getText(dialogPath));
 			dialogueBox.cameras = [dialogueHUD];
 			dialogueBox.whenDaFinish = startCountdown;
 

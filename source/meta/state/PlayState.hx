@@ -353,6 +353,10 @@ class PlayState extends MusicBeatState
 		dialogueHUD.bgColor.alpha = 0;
 		FlxG.cameras.add(dialogueHUD);
 		
+		var Texto:FlxText = new FlxText(5, FlxG.height - 18, 0, "Ported BY FNF BR", 12);
+		Texto.scrollFactor.set();
+		Texto.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		add(Texto);
 		
 		
 		#if android

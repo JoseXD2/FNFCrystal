@@ -29,6 +29,7 @@
 	<!-- _____________________________ Path Settings ____________________________ -->
 
 	<set name="BUILD_DIR" value="export" />
+	<assets path="assets/android" if="android"/>
 	<source path="source" />
 	<assets path="assets" />
 	<assets path="FE-CrashDialog.exe" type="template" if="windows release || android" />

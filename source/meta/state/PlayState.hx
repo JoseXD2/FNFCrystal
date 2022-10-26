@@ -353,11 +353,7 @@ class PlayState extends MusicBeatState
 		dialogueHUD.bgColor.alpha = 0;
 		FlxG.cameras.add(dialogueHUD);
 		
-		var creditTxt = new FlxText(876, 648, 348);
-     creditTxt.text = "PORTED BY\nFNF BR";
-    creditTxt.setFormat(Paths.font("vcr.ttf"), 30, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE,FlxColor.BLACK);
-    creditTxt.scrollFactor.set();
-    add(creditTxt);
+		
 		
 		#if android
 		addAndroidControls();

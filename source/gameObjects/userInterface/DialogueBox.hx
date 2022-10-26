@@ -6,6 +6,7 @@ import flixel.FlxSprite;
 import flixel.group.FlxSpriteGroup;
 import flixel.math.FlxPoint;
 import flixel.text.FlxText;
+import openfl.utils.Assets as OpenFlAssets;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
@@ -103,7 +104,7 @@ class DialogueBox extends FlxSpriteGroup
 		var truePath = Paths.file(file);
 
 		// load the json file
-		if (sys.FileSystem.exists(dialoguePath))
+		if (OpenFlAssets.exists(dialoguePath))
 			return dialoguePath;
 		else
 			return truePath;
@@ -230,7 +231,7 @@ class DialogueBox extends FlxSpriteGroup
 			var boxJson = Paths.file('images/dialogue/boxes/$curBox/$curBox.json');
 
 			// load the json and sprite
-			boxData = haxe.Json.parse(sys.io.File.getContent(boxJson));
+			boxData = haxe.Json.parse(OpenFlAssets.getText(boxJson));
 			box.frames = Paths.getSparrowAtlas('dialogue/boxes/$curBox/$curBox');
 
 			// get the states sectioon
@@ -316,9 +317,9 @@ class DialogueBox extends FlxSpriteGroup
 				var portraitJson = Paths.file('images/dialogue/portraits/$curCharacter/$curCharacter.json');
 
 				// load the json file
-				if (sys.FileSystem.exists(portraitJson))
+				if (OpenFlAssets.exists(portraitJson))
 				{
-					portraitData = haxe.Json.parse(sys.io.File.getContent(portraitJson));
+					portraitData = haxe.Json.parse(OpenFlAssets.getText(portraitJson));
 					portrait.frames = Paths.getSparrowAtlas('dialogue/portraits/$curCharacter/$curCharacter');
 				}
 

@@ -106,6 +106,10 @@ class PauseSubState extends MusicBeatSubState
 		#if debug
 		// trace('cameras done');
 		#end
+			
+		#if android
+		addVirtualPad(NONE, A);
+		#end	
 	}
 
 	override function update(elapsed:Float)

@@ -41,7 +41,7 @@ import sys.io.File;
 
 using StringTools;
 
-#if !html5
+#if windows 
 import meta.data.dependency.Discord;
 #end
 
@@ -1168,7 +1168,7 @@ class PlayState extends MusicBeatState
 
 	public static function updateRPC(pausedRPC:Bool)
 	{
-		#if !html5
+		#if windows 
 		var displayRPC:String = (pausedRPC) ? detailsPausedText : songDetails;
 
 		if (health > 0)

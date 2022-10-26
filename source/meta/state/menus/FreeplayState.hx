@@ -127,7 +127,7 @@ class FreeplayState extends MusicBeatState
 		// LOAD MUSIC
 		// ForeverTools.resetMenuMusic();
 
-		#if !html5
+		#if windows 
 		Discord.changePresence('FREEPLAY MENU', 'Main Menu');
 		#end
 
